@@ -19,7 +19,7 @@ def init_model(embed_model_name, llm_model_name):
     index = VectorStoreIndex.from_documents(documents)
     return index.as_query_engine()
 
-print("Starting model initialization with embed_model: ", embed_model_arg, " and llm_model: ", llm_model_arg)
+print("Starting model initialization with:\n- Embedding Model: ", embed_model_arg, "\n- LLM Model: ", llm_model_arg)
 query_engine = init_model(embed_model_arg, llm_model_arg)
 
 @app.route('/query', methods=['POST'])
