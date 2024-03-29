@@ -15,11 +15,7 @@ data_folder = './data/'
 
 def add_documents():
     file_paths = filedialog.askopenfilenames(title="Select Documents")
-    if file_paths:
-        # Check if the data directory exists, create it if it doesn't
-        if not os.path.exists(data_folder):
-            os.makedirs(data_folder)
-        
+    if file_paths:        
         for file_path in file_paths:
             try:
                 # Copy the selected files to the data folder
@@ -41,10 +37,13 @@ def delete_selected_document():
 def update_document_list():
     # Clear the listbox
     lb_documents.delete(0, tk.END)
+    # Check if the data directory exists, create it if it doesn't
+    if not os.path.exists(data_folder):
+        os.makedirs(data_folder)
+            
     # Fill the listbox with files from the data folder
     for filename in os.listdir(data_folder):
-        lb_documents.insert(tk.END, filename)
-      
+        lb_documents.insert(tk.END, filename)      
 
 # Placeholder for the Flask process
 flask_process = None
@@ -159,8 +158,8 @@ entry_embed_model.pack()
 entry_embed_model.insert(0, "local:BAAI/bge-large-en")
 
 # LLaMA model entry in the config tab
-llama_label = tk.Label(config_tab, text="Enter LLaMA Model:")
-llama_label.pack()
+llm_label = tk.Label(config_tab, text="Enter LLM Model:")
+llm_label.pack()
 entry_llm_model = tk.Entry(config_tab)
 entry_llm_model.pack()
 entry_llm_model.insert(0, "llama2:13b")
@@ -176,6 +175,8 @@ btn_delete_doc.pack()
 # Listbox to display documents in the config tab
 lb_documents = tk.Listbox(config_tab)
 lb_documents.pack(fill=tk.BOTH, expand=True)
+
+update_document_list() # Update the document list on startup
 
 # Start Flask server button in the server tab
 btn_start_flask = tk.Button(server_tab, text="Start Flask Server", command=start_flask_app)
