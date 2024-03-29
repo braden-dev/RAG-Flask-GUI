@@ -62,7 +62,7 @@ def start_flask_app():
         llm_model_name = entry_llm_model.get() or "llama2:13b"
         global flask_process
         flask_process = subprocess.Popen(
-            ['python', FLASK_APP_PATH, embed_model_name, llm_model_name],
+            ['python', FLASK_APP_PATH, '--embed_model', embed_model_name, '--llm_model', llm_model_name, '--mode', 'production'],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,  # Redirect stderr to stdout
             text=True,  # Open the pipes in text mode
@@ -154,7 +154,7 @@ def send_query_thread(prompt):
         # Start the "Thinking..." animation in a separate thread
         threading.Thread(target=update_thinking_message, daemon=True).start()
         try:
-            response = requests.post('http://127.0.0.1:5000/query', json={'query': prompt}) 
+            response = requests.post('http://127.0.0.1:8000/query', json={'query': prompt}) 
             is_thinking = False  # Stop the "Thinking..." animation
             if response.status_code == 200:
                 # Use partial to pass arguments to the function called by after
