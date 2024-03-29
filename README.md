@@ -34,7 +34,7 @@ This project integrates the [Ollama repository](https://github.com/ollama/ollama
    pip install -r requirements.txt
    ```
 
-4. **Ollama and LLaMA Index AI Installation**:
+4. **Ollama Installation**:
 
    Ensure you have the Ollama application installed. Installers can be found [here](https://github.com/ollama/ollama?tab=readme-ov-file#ollama).
 
@@ -68,4 +68,4 @@ Feel free to fork the repository and submit pull requests. For major changes, pl
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](./LICENSE)
