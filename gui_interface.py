@@ -204,6 +204,7 @@ dark_theme = {
 root = tk.Tk()
 root.title("LLM RAG Configuration")
 root.configure(bg=dark_theme['background'])
+log_visible = tk.BooleanVar(value=True)  # State variable for log visibility
 root.protocol("WM_DELETE_WINDOW", on_closing) # Stop the server when the window is closed
 
 # Create and configure a ttk style
