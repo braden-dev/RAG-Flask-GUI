@@ -6,6 +6,28 @@ from llama_index.llms.ollama import Ollama
 from waitress import serve
 import sys, argparse
 
+from llama_index.core.prompts import LangchainPromptTemplate
+from langchain import hub
+
+langchain_prompt = hub.pull("rlm/rag-prompt")
+# print("LangChain Prompt:", langchain_prompt.messages[0].prompt.template)
+new_template = """
+You are an assistant for question-answering tasks. 
+Based on the context provided, answer the question succinctly.
+If uncertain, state that the answer is unknown. Use up to three sentences for a concise response.
+Include the location of your answer from the document you found it in (page number, section, etc.).
+
+Question: {question}
+Context: {context}
+Answer:
+"""
+langchain_prompt.messages[0].prompt.template = new_template
+
+lc_prompt_tmpl = LangchainPromptTemplate(
+    template=langchain_prompt,
+    template_var_mappings={"query_str": "question", "context_str": "context"},
+)
+
 app = Flask(__name__)
 
 # Set up argument parsing
@@ -30,6 +52,10 @@ def init_model(embed_model_name, llm_model_name):
 
 print("Starting model initialization with:\n- Embedding Model: ", embed_model_arg, "\n- LLM Model: ", llm_model_arg)
 query_engine = init_model(embed_model_arg, llm_model_arg)
+
+query_engine.update_prompts(
+    {"response_synthesizer:text_qa_template": lc_prompt_tmpl}
+)
 
 @app.route('/query', methods=['POST'])
 def handle_query():
