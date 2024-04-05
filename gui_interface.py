@@ -243,7 +243,7 @@ llm_label.pack()
 
 entry_llm_model = tk.Entry(config_tab, bg=dark_theme['entry_background'], fg=dark_theme['entry_foreground'], insertbackground=dark_theme['foreground'], width=50)
 entry_llm_model.pack()
-entry_llm_model.insert(0, "llama2:13b")
+entry_llm_model.insert(0, "llama2:13b-chat")
 
 btn_add_docs = ttk.Button(config_tab, text="Add Documents for RAG", command=add_documents)
 btn_add_docs.pack()
