@@ -59,7 +59,7 @@ def start_flask_app():
 
     def run_flask():
         embed_model_name = entry_embed_model.get() or "local:BAAI/bge-large-en"
-        llm_model_name = entry_llm_model.get() or "llama2:13b"
+        llm_model_name = entry_llm_model.get() or "llama2:13b-chat"
         global flask_process
         flask_process = subprocess.Popen(
             ['python', FLASK_APP_PATH, '--embed_model', embed_model_name, '--llm_model', llm_model_name, '--mode', 'production'],

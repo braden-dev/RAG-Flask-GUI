@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings
 from llama_index.core.embeddings import resolve_embed_model
 from llama_index.llms.ollama import Ollama
-from llama_index.core.evaluation import FaithfulnessEvaluator
 from waitress import serve
 import sys, argparse
 
